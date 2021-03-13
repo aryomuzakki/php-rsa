@@ -46,9 +46,6 @@ class Rsa {
 
         foreach ($text_arr as $text_arr) {
             $ord_text = ord($text_arr); // ubah karakter ke angka desimal
-            // echo "\$ord_text = $ord_text<br>";
-            // echo "\$e = $e<br>";
-            // echo "\$n = $n<br>";
             $chip_arr[] = bcpowmod($ord_text, $e, $n); // rumus enkripsi
         }
 
@@ -64,11 +61,7 @@ class Rsa {
         $chip_arr = preg_split("/[^0-9]/", $ord_chip); // array desimal dipisah sesuai koma
         
         foreach ($chip_arr as $chip_arr) {
-            // echo "\$chip_arr = $chip_arr<br>";
-            // echo "\$d = $d<br>";
-            // echo "\$n = $n<br>";
             $ord_chip = bcpowmod($chip_arr, $d, $n); // rumus dekripsi
-            // echo "\$ord_chip: " . $ord_chip . "<br>";
             $text_arr[] = chr($ord_chip); // ubah angka desimal ke karakter/huruf
         }
         
@@ -78,15 +71,12 @@ class Rsa {
 
 
     function gen_e($m) {
-        // e[]=null;
         for ($i = 8; $i < $m; $i++) {
             if ( $this->gcd($m, $i) == 1 ) {
                 $e[] = $i;
-                // echo "<br>i di e=".$i;
             }
         }
         
-        // $this->e = end(array_values($e));
         $this->e_arr = $e;
         $this->e = $e[0];
     }
@@ -96,13 +86,8 @@ class Rsa {
         for ($i = 7; $i < $limit; $i++) {
 
             $result = (1 + ( $i * $m )) % $e;
-            // echo "<br>m=".$m;
-            // echo "<br>result di d=".$result;
             if ( $result == 0 ) {
                 $the_d[] = (1 + ( $i * $m )) / $e;
-                // echo "<br>result=".$result;
-                // echo "<br>nilai i=".$i;
-                // echo "<br>d=".$the_d[$j];
                 $j++;
             }
         }
